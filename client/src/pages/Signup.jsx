@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const Signup = ({setSignUp}) => {
+const Signup = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -10,21 +10,25 @@ const Signup = ({setSignUp}) => {
         e.preventDefault();
 
         console.log("Form submitted");
-        setSignUp(false);
+        console.log(`name is${username} email is ${email} password is ${password}`)
+        // setSignUp(false);
 
         // Do not think of using useEffect while submitting forms
-        if(!username || !email || !password || !confirmPassword || username.trim===' ' ){
-            alert("Please enter the details correctly");
-        }
-        else if(password !== confirmPassword){
+        // if(!username || !email || !password){
+        //     alert("Please enter the details correctly");
+        //     return;
+        // }
+        if(password !== confirmPassword){
             alert("Passwords do not match");
+            return;
         }
-        else if(password.length<6){
-            alert("Password should be at least 6 characters long");
-        }
+        // else if(password.length<6){
+        //     alert("Password should be at least 6 characters long");
+        //     return;
+        // }
         else{
             const data={
-                username:username,
+                name:username,
                 email:email,
                 password:password,
                 confirmPassword:confirmPassword
@@ -32,9 +36,10 @@ const Signup = ({setSignUp}) => {
             console.log(data)
             // API call to server write fn
             try {
-                const response=await axios.post("http://localhost:3000/api/signup");
+                const response=await axios.post("http://localhost:3000/api/signup",data);
                 if(response.data.message==="User already exists"){
                     alert("User already exists");
+                    return;
                 }
                 else{
                     // Bhai ab token aa gyaa hai to ab usse mujhko authorization header mein daalna pdhega using a middleware
@@ -57,17 +62,17 @@ const Signup = ({setSignUp}) => {
             <form onSubmit={onSubmitHandler} className='h-[500px] w-[600px] border rounded-md' action="submit">
                 <div className='flex flex-col gap-3 p-4'>
                     <label className='text-white'>Username:</label>
-                    <input onClick={(e)=>setUsername(e.target.value)} type="text" className='bg-slate-700 p-2 rounded-md'
-                    placeholder='Enter your username' />
+                    <input onChange={(e)=>setUsername(e.target.value)} type="text" className='bg-slate-700 p-2 rounded-md'
+                    placeholder='Enter your username' value={username}/>
                     <label className='text-white'>Email:</label>
-                    <input onClick={(e)=>setEmail(e.target.value)} type="email" className='bg-slate-700 p-2 rounded-md'
-                    placeholder='Enter your email' />
+                    <input onChange={(e)=>setEmail(e.target.value)} type="email" className='bg-slate-700 p-2 rounded-md'
+                    placeholder='Enter your email' value={email} />
                     <label className='text-white'>Password:</label>
-                    <input onClick={(e)=>setPassword(e.target.value)} type="password" className='bg-slate-700 p-2 rounded-md'
-                    placeholder='Enter your password' />
+                    <input onChange={(e)=>setPassword(e.target.value)} type="password" className='bg-slate-700 p-2 rounded-md'
+                    placeholder='Enter your password' value={password}/>
                     <label className='text-white'>Confirm Password:</label>
-                    <input onClick={(e)=>setConfirmPassword(e.target.value)} type="password" className='bg-slate-700 p-2 rounded-md'
-                    placeholder='Confirm your password' />
+                    <input onChange={(e)=>setConfirmPassword(e.target.value)} type="password" className='bg-slate-700 p-2 rounded-md'
+                    placeholder='Confirm your password' value={confirmPassword}/>
                     <button className='bg-orange-500 hover:bg-orange-700 text-white font-bold py-
                     2 px-4 rounded'>Signup</button>
                 </div>
