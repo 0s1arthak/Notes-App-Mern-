@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-
-const Signup = () => {
+const Signup = ({navigate}) => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -46,6 +45,8 @@ const Signup = () => {
                     console.log("User created with data",response.data);
                     // Save token
                     localStorage.setItem('token', response.data.token);
+                    // Redirect to main page 
+                    navigate('/main');
                 }
             } catch (error) {
                 console.log(error);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 
-const Login = () => {
+const Login = ({navigate}) => {
   const [email,setEmail]=useState('');
   const [password,setPassword]=useState('');
 
@@ -38,6 +38,8 @@ const Login = () => {
       else{
         console.log("User logged in data with",response.data);
         localStorage.setItem('token', response.data.token);
+        // Redirect to main page 
+        navigate('/main');
       }
     } catch (error) {
       console.log(error);

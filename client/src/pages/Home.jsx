@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // Import Link for routing
 import Navbar from '../components/Navbar';
 import Signup from './Signup';
 import Login from './Login';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [signUp,setSignUp]=useState(false);
   const [logIn,setLogIn]=useState(false);
+  const navigate = useNavigate();
+  // useEffect(()=>{
+  //   const token=localStorage.getItem('token');
+  //   if(token){
+  //     // Navigate to main page
+  //     navigate('/main');
+  //   }
+  // },[navigate])
   if(!signUp && !logIn){
     return (
       <div>
@@ -20,11 +29,11 @@ const Home = () => {
   }
   if(signUp){
     return(
-      <Signup/>
+      <Signup navigate={navigate}/>
     )
   }
   return(
-    <Login/>
+    <Login navigate={navigate}/>
   )
 
 

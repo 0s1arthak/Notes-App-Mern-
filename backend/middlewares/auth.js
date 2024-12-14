@@ -1,9 +1,12 @@
 const jwt=require('jsonwebtoken')
-
+const User=require('../models/User');
 
 const protect=(req,res,next)=>{
     // Extract token from request
     const token = req.headers.authorization?.split(' ')[1];
+    console.log('Incoming Token:', req.headers.authorization);
+    console.log('Information is ',req.headers.authorization?.split(" "));
+    console.log("Token is",token);
     if(!token){
         return res.status(401).json({message:'No token authorization denied'})
     }

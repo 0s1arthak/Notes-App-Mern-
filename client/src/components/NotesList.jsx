@@ -8,7 +8,8 @@ const NotesList = () => {
     useEffect(() => {
         const getNotes = async () => {
             try {
-                const token = localStorage.getItem('authToken'); // Get the token from localStorage
+                const token = localStorage.getItem('token'); // Get the token from localStorage
+                console.log(token);
                 if (!token) {
                     setError('No token found. Please log in.');
                     return;
