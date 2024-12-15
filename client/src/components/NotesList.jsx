@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-const NotesList = () => {
+const NotesList = ({setEditForm,setCurrentNoteId}) => {
     const [notes, setNotes] = useState([]);
     const [error, setError] = useState(null);
 
@@ -31,18 +31,28 @@ const NotesList = () => {
     }, []); // Empty dependency array to run effect only once on component mount
 
     return (
-        <div>
-            {error && <p>{error}</p>}
+        <div className="p-6 space-y-6"> {/* Increased space-y value for more space between notes */}
+            {error && <p className="text-red-500">{error}</p>}
 
             {notes.length > 0 ? (
                 notes.map((note, index) => (
-                    <div key={index}>
-                        <h2>{note.title}</h2>
-                        <p>{note.content}</p>
+                    <div 
+                        key={index} 
+                        className="bg-white shadow-md p-4 rounded-md space-y-2"
+                    >
+                        <h2 className="text-xl font-bold text-blue-600">{note.title}</h2>
+                        <p className="text-gray-700">{note.content}</p>
+                        <button className='bg-orange-500 hover:bg-orange-700 text-white font-bold py-
+                    2 px-4 rounded'
+                    onClick={()=>{
+                        setEditForm(true);
+                        setCurrentNoteId(note._id);
+                    }}
+                    >Edit</button>
                     </div>
                 ))
             ) : (
-                <h1 className="text-white text-3xl">No notes to show</h1>
+                <h1 className="text-white text-3xl text-center">No notes to show</h1>
             )}
         </div>
     );

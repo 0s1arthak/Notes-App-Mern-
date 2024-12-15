@@ -42,7 +42,7 @@ router.get('/api/getNotes',protect,async (req,res)=>{
 
 
 
-router.put('/api/notes/:id',async(req,res)=>{
+router.put('/api/notes/:id',protect,async(req,res)=>{
     try {
         const {title,content}=req.body;
         if(!title || !content){
@@ -50,11 +50,16 @@ router.put('/api/notes/:id',async(req,res)=>{
         }
         console.log(req.params);
         const id=req.params.id;
-        const updatedNote=await Note.findByIdAndUpdate(id,{title,content},{new:true})
-        if(!updatedNote){
-            return res.status(404).json({message:"Note not found"})
+        const note = await Note.findOne({ _id: id, user: req.user });
+        if (!note) {
+          return res.status(404).json({ message: "Note not found or access denied" });
         }
-        res.json(updatedNote);
+    
+        // Update the note
+        note.title = title;
+        note.content = content;
+        const updatedNote = await note.save();
+        res.status(200).json(updatedNote);
 
     } catch (error) {
         console.log(error);
