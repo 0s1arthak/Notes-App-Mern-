@@ -159,9 +159,10 @@ const Main = () => {
   }
 
   return (
-    <div className="h-screen w-screen bg-slate-800 flex flex-col justify-center items-center space-y-5">
-      <div className="fixed top-0 left-0 w-full bg-gray-900 h-16 flex items-center justify-between px-6 shadow-lg">
-        <p className="text-white text-lg">Notes App</p>
+    <div className="flex flex-col min-h-screen bg-slate-800">
+      {/* Navbar */}
+      <div className="sticky top-0 left-0 w-full bg-gray-900 h-16 flex items-center justify-between px-6 shadow-lg z-10">
+        <p className="text-white text-lg font-bold">Notes App</p>
         <button
           onClick={onClickHandler}
           className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
@@ -169,22 +170,27 @@ const Main = () => {
           Sign Out
         </button>
       </div>
-
-      <button
-        className="px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
-        onClick={() => setViewMode('create')}
-      >
-        Create Note
-      </button>
-
-      <NotesList
-        setViewMode={setViewMode}
-        setCurrentNoteId={setCurrentNoteId}
-        setTitle={setTitle}
-        setContent={setContent}
-      />
+  
+      {/* Main Content */}
+      <div className="flex-1 overflow-y-auto flex flex-col items-center space-y-5 px-4 py-6">
+        <button
+          className="px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+          onClick={() => setViewMode('create')}
+        >
+          Create Note
+        </button>
+  
+        <NotesList
+          setViewMode={setViewMode}
+          setCurrentNoteId={setCurrentNoteId}
+          setTitle={setTitle}
+          setContent={setContent}
+        />
+      </div>
     </div>
   );
+  
+  
 };
 
 export default Main;
