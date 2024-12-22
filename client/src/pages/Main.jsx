@@ -40,7 +40,7 @@ const Main = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/api/notes', note, {
+      const response = await axios.post('https://notes-app-mern-dh3o.onrender.com/api/notes', note, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ const Main = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/notes/${currentNoteId}`,
+        `https://notes-app-mern-dh3o.onrender.com/api/notes/${currentNoteId}`,
         noteToUpdate,
         {
           headers: {

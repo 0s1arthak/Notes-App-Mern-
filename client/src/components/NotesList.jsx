@@ -16,7 +16,7 @@ const NotesList = ({ setViewMode, setCurrentNoteId, setTitle, setContent }) => {
           return;
         }
 
-        const response = await axios.get('http://localhost:3000/api/getNotes', {
+        const response = await axios.get('https://notes-app-mern-dh3o.onrender.com/api/getNotes', {
           headers: {
             Authorization: `Bearer ${token}`, // Send token in headers
           },
@@ -49,7 +49,7 @@ const NotesList = ({ setViewMode, setCurrentNoteId, setTitle, setContent }) => {
         alert("please log in to delete note");
         return;
       }
-      const response=await axios.delete(`http://localhost:3000/api/notes/${noteId}`,{
+      const response=await axios.delete(`https://notes-app-mern-dh3o.onrender.com/api/notes/${noteId}`,{
         headers:{
           Authorization:`Bearer ${token}`
         }

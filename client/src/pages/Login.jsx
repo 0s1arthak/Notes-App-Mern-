@@ -27,7 +27,7 @@ const Login = () => {
     // console.log(data);
     // Make api call now 
     try {
-      const response=await axios.post("http://localhost:3000/api/login",data);
+      const response=await axios.post("https://notes-app-mern-dh3o.onrender.com/api/login",data);
       if(response.data.message==="User does not exist"){
         alert("User does not exist please sign up to move further");
         return;

@@ -37,7 +37,7 @@ const Signup = () => {
             // console.log(data)
             // API call to server write fn
             try {
-                const response=await axios.post("http://localhost:3000/api/signup",data);
+                const response=await axios.post("https://notes-app-mern-dh3o.onrender.com/api/signup",data);
                 if(response.data.message==="User already exists"){
                     alert("User already exists");
                     return;

@@ -18,7 +18,7 @@ const _dirname=path.resolve()
 // Middleware
 app.use(
     cors({
-      origin: "http://localhost:5173", // Frontend URL
+      origin: "https://notes-app-mern-dh3o.onrender.com", // Frontend URL
       credentials:true,
     })
   );
