@@ -1,4 +1,4 @@
 # Ignore environment file and package-related files
 .env
-package.json
+# package.json
 package-lock.json
