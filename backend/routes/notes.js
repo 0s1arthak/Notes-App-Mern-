@@ -70,6 +70,27 @@ router.put('/api/notes/:id',protect,async(req,res)=>{
 
 
 
+// Delete route
+// Delete route
+router.delete('/api/notes/:id', protect, async (req, res) => {
+    try {
+        const id = req.params.id;
+        const note = await Note.findOne({ _id: id, user: req.user });
+        if (!note) {
+            return res.status(404).json({ message: "Note not found or access denied" });
+        }
+        // Delete the note
+        await Note.deleteOne({ _id: id, user: req.user });
+        res.status(200).json({ message: "Note deleted successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error in deleting the note" });
+    }
+});
+
+
+
+
 
 
 

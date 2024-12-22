@@ -40,6 +40,37 @@ const NotesList = ({ setViewMode, setCurrentNoteId, setTitle, setContent }) => {
     }
     setView('searching');
   }
+  
+
+  const onDeletehandler=async(noteId)=>{
+    try {
+      const token=localStorage.getItem('token');
+      if(!token){
+        alert("please log in to delete note");
+        return;
+      }
+      const response=await axios.delete(`http://localhost:3000/api/notes/${noteId}`,{
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      })
+      if(response.status===404){
+        alert("Note not found");
+        return;
+      }
+      if(response.status===200){
+        setNotes(notes.filter(note=>note._id!==noteId));
+      }
+    } catch (error) {
+      console.log("error is",error);
+      
+    }
+  }
+
+
+
+
+
 
   if(view==='searching' && notes.length>0){
     const filteredNotes=notes.filter((note)=>note.title.split(" ").some((word) => word.toLowerCase().includes(search.toLowerCase())));
@@ -121,6 +152,13 @@ const NotesList = ({ setViewMode, setCurrentNoteId, setTitle, setContent }) => {
             }}
           >
             Edit
+          </button>
+          {/* Add delete button */}
+          <button 
+          className='bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded'
+          onClick={()=>onDeletehandler(note._id)}
+          >
+            Delete
           </button>
         </div>
       </div>

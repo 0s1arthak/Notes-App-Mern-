@@ -11,6 +11,7 @@ const Main = () => {
   const [content, setContent] = useState('');
   const [currentNoteId, setCurrentNoteId] = useState(null);
 
+
   const onClickHandler = () => {
     localStorage.removeItem('token');
     navigate('/login');

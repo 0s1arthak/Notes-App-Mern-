@@ -34,7 +34,7 @@ const Signup = () => {
                 password:password,
                 confirmPassword:confirmPassword
             }
-            console.log(data)
+            // console.log(data)
             // API call to server write fn
             try {
                 const response=await axios.post("http://localhost:3000/api/signup",data);
