@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require("path");
 
 dotenv.config(); // Load environment variables
 
@@ -10,6 +11,9 @@ const authroutes = require('./routes/authroutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+
+const _dirname=path.resolve()
 
 // Middleware
 app.use(
@@ -23,6 +27,10 @@ app.use(express.json());
 // Routes
 app.use(notesrequest);
 app.use(authroutes);
+app.use(express.static(path.join(_dirname,"/client/dist")))
+app.get("*",(_,res)=>{
+    res.sendFile(path.resolve(_dirname,"client","dist","index.html"))
+})
 
 app.get('/', (req, res) => {
     res.send(`Server has started to run at port ${port}`);
